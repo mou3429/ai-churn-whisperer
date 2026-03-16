@@ -1,0 +1,10 @@
+streamlit==1.55.0
+pandas>=1.4
+numpy>=1.23
+scikit-learn>=1.0
+xgboost>=1.7
+joblib
+shap
+matplotlib
+seaborn
+gdown
