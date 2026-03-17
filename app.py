@@ -2,11 +2,70 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+# ---------- Auto-download models (put this just after imports, before loading models) ----------
+import os, subprocess, sys
+
+def _download_models_if_missing():
+    """
+    Ensures two model files exist under ./models/.
+    If missing, runs `download_models.py` (which should be in the same folder).
+    """
+    models_ok = os.path.exists("models/xgb_model.pkl") and os.path.exists("models/preprocessor.pkl")
+    if models_ok:
+        return True
+
+    # If running inside Streamlit, use streamlit spinner for UX
+    try:
+        import streamlit as _st  # local import so this code also works when not running streamlit
+        spinner = _st.spinner("Model artifacts missing — downloading model files (this may take a minute)...")
+        spinner.__enter__()  # start spinner
+    except Exception:
+        _st = None
+        spinner = None
+
+    try:
+        # Run the helper script with the same Python interpreter
+        print("Model files missing — running download_models.py to fetch them...")
+        # Use check_call to raise exception on failure
+        subprocess.check_call([sys.executable, "download_models.py"])
+    except Exception as e:
+        # Clean up spinner and surface a readable error
+        if spinner:
+            spinner.__exit__(type(e), e, e.__traceback__)
+        err_msg = f"Failed to download model artifacts automatically: {e}"
+        print(err_msg)
+        if _st:
+            _st.error("Unable to download model files automatically. Please run `python download_models.py` manually and ensure Drive sharing is 'Anyone with the link'.")
+        return False
+    else:
+        if spinner:
+            spinner.__exit__(None, None, None)
+        print("Download finished — models should now exist in ./models")
+        return os.path.exists("models/xgb_model.pkl") and os.path.exists("models/preprocessor.pkl")
+
+# Call it immediately so later code can load the models
+_download_models_if_missing()
+# -----------------------------------------------------------------------------------------------
+
 # Load saved model and preprocessor
 @st.cache_resource
 def load_model():
-    xgb = joblib.load('xgb_model.pkl')
-    preprocessor = joblib.load('preprocessor.pkl')
+    """
+    Load model and preprocessor from models/ folder.
+    This function is cached by Streamlit so the models are loaded only once.
+    """
+    xgb_path = "models/xgb_model.pkl"
+    pre_path = "models/preprocessor.pkl"
+
+    # clear, helpful error message if files missing
+    if not (os.path.exists(xgb_path) and os.path.exists(pre_path)):
+        raise FileNotFoundError(
+            "Model files not found. Please run `python download_models.py` "
+            "or check that models exist in the ./models folder."
+        )
+
+    xgb = joblib.load(xgb_path)
+    preprocessor = joblib.load(pre_path)
     return xgb, preprocessor
 
 st.title("🚀 AI Churn Whisperer – Personalized Retention")

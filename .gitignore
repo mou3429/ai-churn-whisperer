@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data / models
+/models/
+/*.pkl
+/*.joblib
+*.sqlite3
+
+# Streamlit
+.streamlit/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
