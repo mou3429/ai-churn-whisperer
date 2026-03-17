@@ -7,7 +7,7 @@ I built it to show that ML should not be a black box: predictions must be explai
 ---
 
 ## Live demo
-**Not deployed yet.**  
+**https://your-app-name.streamlit.app**  
 To run on your machine (quick & local):
 
 ```powershell
