@@ -1,6 +1,6 @@
 # AI Churn Whisperer — Personalized Retention
 
-Hi — I’m **Moumita**. Hi — I’m Moumita. This project demonstrates an end-to-end machine learning workflow for predicting telecom customer churn and generating practical retention strategies. 
+Hi — I’m **Moumita**.This project demonstrates an end-to-end machine learning workflow for predicting telecom customer churn and generating practical retention strategies. 
 
 I built a small interactive Streamlit app where you can enter customer details and instantly see the predicted churn risk along with a simple, actionable retention suggestion — for example: “Offer 1-month free streaming + 10% discount for 2 months”.
 
