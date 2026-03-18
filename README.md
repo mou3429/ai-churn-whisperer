@@ -1,6 +1,8 @@
 # AI Churn Whisperer — Personalized Retention
 
-Hi — I’m **Moumita**. This little app is my hand-on project that predicts whether a telco customer will churn and gives one-line, practical retention suggestions you can actually use (for example: “Offer 1-month free streaming + 10% discount for 2 months”).
+Hi — I’m **Moumita**. Hi — I’m Moumita. This project demonstrates an end-to-end machine learning workflow for predicting telecom customer churn and generating practical retention strategies. 
+
+I built a small interactive Streamlit app where you can enter customer details and instantly see the predicted churn risk along with a simple, actionable retention suggestion — for example: “Offer 1-month free streaming + 10% discount for 2 months”.
 
 I built it to show that ML should not be a black box: predictions must be explainable, actionable and tied to business decisions.
 
